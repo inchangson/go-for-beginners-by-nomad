@@ -1,11 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-func repeatMe(words ...string) {
-	fmt.Println(words)
+func lenAndUpper(input string) (length int, uppercase string) {
+	length = len(input)
+	uppercase = strings.ToUpper(input)
+	return // length, uppercase 가 생략 가능
 }
 
 func main() {
-	repeatMe("nico", "lynn", "dal", "marshall")
+	target := "abc"
+	fmt.Println("before", target)
+	_, changed := lenAndUpper(target)
+	fmt.Println("after", changed)
 }
