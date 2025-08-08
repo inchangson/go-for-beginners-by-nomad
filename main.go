@@ -1,20 +1,40 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
-func lenAndUpper(input string) (length int, uppercase string) {
-	defer fmt.Println("I'm done") // 함수 종료 후 실행됨
-	length = len(input)
-	uppercase = strings.ToUpper(input)
-	return // length, uppercase 가 생략 가능
+func superAdd(numbers ...int) int {
+	ret := 0
+	for idx, number := range numbers {
+		fmt.Printf("(%d, %d) is added\n", idx, number)
+		ret += number
+	}
+	fmt.Println()
+
+	cache := ret
+	ret = 0
+	for _, number := range numbers { // _ 를 사용하면 idx 무시 가능
+		ret += number
+	}
+	fmt.Println()
+
+	if ret != cache {
+		fmt.Println("something goes wrong(1)")
+	}
+
+	ret = 0
+	// index 통해 직접 접근 또한 가능
+	for i := 0; i < len(numbers); i++ {
+		ret += numbers[i]
+	}
+
+	if ret != cache {
+		fmt.Println("something goes wrong(2)")
+	}
+
+	return ret
 }
 
 func main() {
-	target := "abc"
-	fmt.Println("before", target)
-	_, changed := lenAndUpper(target)
-	fmt.Println("after", changed)
+	total := superAdd(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+	fmt.Println(total)
 }
