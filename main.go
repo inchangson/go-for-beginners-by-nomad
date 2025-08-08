@@ -3,10 +3,10 @@ package main
 import "fmt"
 
 func canIDrink(age int) bool {
-	switch {
-	case age < 18:
+	switch koreanAge := age + 2; {
+	case koreanAge < 18:
 		return false
-	case age < 50:
+	case koreanAge < 50:
 		return true
 	default:
 		return false
