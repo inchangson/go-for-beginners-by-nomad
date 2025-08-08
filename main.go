@@ -1,20 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-func canIDrink(age int) bool {
-	switch koreanAge := age + 2; {
-	case koreanAge < 18:
-		return false
-	case koreanAge < 50:
-		return true
+func isWeekend() {
+	switch time.Now().Weekday() {
+	case time.Saturday, time.Sunday:
+		fmt.Println("Weekend !!!")
 	default:
-		return false
+		fmt.Println("I'm sorry")
 	}
 }
 
 func main() {
-	fmt.Println(canIDrink(17))
-	fmt.Println(canIDrink(30))
-	fmt.Println(canIDrink(90))
+	isWeekend()
 }
