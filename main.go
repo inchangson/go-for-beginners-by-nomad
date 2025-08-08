@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func canIDrink(age int) bool {
-	if age > 18 {
+	if koreanAge := age + 2; koreanAge > 18 {
 		return true
 	}
 	fmt.Println("Are You Crazy?")
@@ -11,5 +11,5 @@ func canIDrink(age int) bool {
 }
 
 func main() {
-	fmt.Println(canIDrink(18))
+	fmt.Println(canIDrink(17))
 }
