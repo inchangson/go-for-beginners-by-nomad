@@ -1,18 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
+
+func multiply(a int, b int) int {
+	return a * b
+}
+
+func add(a, b, c int) int { // you can write type only once if it is same
+	return a + b + c
+}
+
+func myPrint(input string) { // void function has no return type
+	fmt.Println("===RESULT===\n", input, "\n============")
+}
 
 func main() {
-	const name string = "nicolas"
-	// name = "Lynn" // cannot change const
-	fmt.Println(name)
-
-	var age int = 30
-	fmt.Println("before", age)
-	age = 31 // can change var
-	fmt.Println("after", age)
-
-	weight := 70.5 // support type inference only if ⭐️it is in the function block⭐️
-	// => var weight float32 = 70.5
-	fmt.Println(weight, "kg")
+	myPrint(strconv.Itoa(multiply(2, 2)))
+	myPrint(strconv.Itoa(add(2, 2, 2)))
 }
