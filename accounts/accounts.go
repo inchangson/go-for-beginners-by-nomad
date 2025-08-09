@@ -1,6 +1,9 @@
 package accounts
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Account struct
 type Account struct { // 대문자로 시작해야 외부에서 접근 가능
@@ -40,4 +43,15 @@ func (targetAccount *Account) Deposit(amount int) {
 func (a Account) Balance() int {
 	//  ㄴ 즉 getter처럼 기존 값 변경 막기 위해선 value receiver로 충분하다
 	return a.balance
+}
+
+var errNoMoney error = errors.New("sorry, you are poor")
+
+// Withdraw x amount from your account
+func (a *Account) Withdraw(amount int) error {
+	if a.balance < amount {
+		return errNoMoney
+	}
+	a.balance -= amount
+	return nil
 }
