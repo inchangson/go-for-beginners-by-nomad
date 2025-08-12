@@ -7,8 +7,18 @@ import (
 )
 
 func main() {
+	fmt.Println("[START] Dictionary App")
 	dictionary := mydict.Dictionary{}
-	dictionary["hello"] = "world"
+	err := dictionary.Add("hello", "greeting")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("trying to add a word that already exists")
+	err = dictionary.Add("hello", "greeting")
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	definition, error := dictionary.Search("hello")
 	if error != nil {
 		fmt.Println(error)
@@ -22,4 +32,5 @@ func main() {
 	} else {
 		fmt.Println(definition)
 	}
+	fmt.Println("[END] Dictionary App")
 }
