@@ -2,56 +2,33 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/inchangson/go-for-beginners-by-nomad/mydict"
+	"net/http"
 )
 
 func main() {
-	fmt.Println("[START] Dictionary App")
-	dictionary := mydict.Dictionary{}
-	fmt.Println("1. Adding a word (hello, greeting)")
-	err := dictionary.Add("hello", "greeting")
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("2. Trying to Add existed word (hello)")
-	err = dictionary.Add("hello", "greeting")
-	if err != nil {
-		fmt.Println(err)
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://soundcloud.com/",
+		"https://www.facebook.com/",
+		"https://www.instagram.com/",
+		"https://academy.nomadcoders.co/",
 	}
 
-	fmt.Println("3. Searching for a word existed(hello)")
-	definition, error := dictionary.Search("hello")
-	if error != nil {
-		fmt.Println(error)
-	} else {
-		fmt.Println(definition)
+	for _, url := range urls {
+		hitURL(url)
 	}
+}
 
-	fmt.Println("4. Searching for a word that are not existed(bye)")
-	definition, error = dictionary.Search("bye")
-	if error != nil {
-		fmt.Println(error)
-	} else {
-		fmt.Println(definition)
+var errRequestFailed error = fmt.Errorf("request failed")
+
+func hitURL(url string) error {
+	fmt.Println("Requesting:", url)
+	resp, err := http.Get(url)
+	if err != nil || resp.StatusCode >= 400 {
+		return errRequestFailed
 	}
-
-	fmt.Println("5. Update for a word (hello, greeting) to (hello, again)")
-	err = dictionary.Update("hello", "again")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(dictionary.Search("hello"))
-	}
-
-	fmt.Println("6. Delete for a word (hello, greeting)")
-	err = dictionary.Delete("hello")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("Deleted successfully, searching for the word again:")
-		fmt.Println(dictionary.Search("hello"))
-	}
-
-	fmt.Println("[END] Dictionary App")
+	return nil
 }
