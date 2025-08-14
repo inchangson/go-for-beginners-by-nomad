@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func test() {
+func Test() {
 	urls := []string{
 		"https://www.airbnb.com/",
 		"https://www.google.com/",
