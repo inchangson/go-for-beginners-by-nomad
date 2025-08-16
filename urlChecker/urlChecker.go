@@ -5,7 +5,13 @@ import (
 	"net/http"
 )
 
+type requestResult struct {
+	url    string
+	status string
+}
+
 func Test() {
+	results := make(map[string]string)
 	urls := []string{
 		"https://www.airbnb.com/",
 		"https://www.google.com/",
@@ -17,33 +23,30 @@ func Test() {
 		"https://academy.nomadcoders.co/",
 	}
 
-	// map 초기화 방법 1
-	// results := map[string]string{}
-	// map 초기화 방법 2
-	results := make(map[string]string)
+	ch := make(chan requestResult)
 
 	for _, url := range urls {
-		err := hitURL(url)
-		if err != nil {
-			results[url] = "FAILED"
-		} else {
-			results[url] = "OK"
-		}
+		go hitURL(url, ch)
 	}
 
-	for url, result := range results {
-		fmt.Println(url, ":", result)
+	for i := 0; i < len(urls); i++ {
+		res := <-ch
+		results[res.url] = res.status
 	}
+
+	for url, status := range results {
+		fmt.Printf("URL: %s, Status: %s\n", url, status)
+	}
+
 }
 
-var errRequestFailed error = fmt.Errorf("request failed")
-
-func hitURL(url string) error {
+func hitURL(url string, ch chan<- requestResult) {
+	// ch chan<- result로 정의하면 send-only 채널로 정의됨
 	fmt.Println("Requesting:", url)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 400 {
-		fmt.Println("Error Status Code:", resp.StatusCode)
-		return errRequestFailed
+		ch <- requestResult{url: url, status: "failed"}
+	} else {
+		ch <- requestResult{url: url, status: "ok"}
 	}
-	return nil
 }

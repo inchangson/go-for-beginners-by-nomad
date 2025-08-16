@@ -1,7 +1,9 @@
 package main
 
-import "github.com/inchangson/go-for-beginners-by-nomad/concurrency"
+import (
+	urlchecker "github.com/inchangson/go-for-beginners-by-nomad/urlChecker"
+)
 
 func main() {
-	concurrency.Test()
+	urlchecker.Test()
 }
