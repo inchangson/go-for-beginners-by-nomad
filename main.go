@@ -1,9 +1,9 @@
 package main
 
 import (
-	urlchecker "github.com/inchangson/go-for-beginners-by-nomad/urlChecker"
+	"github.com/inchangson/go-for-beginners-by-nomad/jobscrapper"
 )
 
 func main() {
-	urlchecker.Test()
+	jobscrapper.Scrap()
 }
